@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "npm run start:dev",
+    "start:dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
@@ -11,10 +12,13 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "morgan": "~1.9.0",
+    "pg": "^7.4.1",
+    "pg-hstore": "^2.3.2",
     "pug": "2.0.0-beta11",
+    "sequelize": "^4.33.4",
     "serve-favicon": "~2.4.5"
   },
-  "description": "App to manage a todo listD",
+  "description": "App to manage a todo list",
   "main": "app.js",
   "keywords": [
     "Todo"
