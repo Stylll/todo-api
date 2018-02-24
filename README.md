@@ -1,6 +1,5 @@
-# Project Title
+# TODO LIST API
 
-TODO-LIST API
 An api built with Express Js, Sequelize and Postgresql.
 
 ## Getting Started
