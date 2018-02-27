@@ -1,0 +1,5 @@
+# Ignore files in the dist folder
+dist/*
+
+#Ignore files in the test folder 
+test/*

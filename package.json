@@ -2,9 +2,13 @@
   "name": "todo-api",
   "version": "0.0.0",
   "private": true,
+  "description": "Api to manage a todo list",
+  "main": "./bin/www",
   "scripts": {
+    "test":"mocha",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "npm run start:dev",
-    "start:dev": "nodemon ./bin/www"
+    "start:dev": "npm run build && nodemon ./dist/bin/www"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
@@ -18,19 +22,21 @@
     "sequelize": "^4.33.4",
     "serve-favicon": "~2.4.5"
   },
-  "description": "App to manage a todo list",
-  "main": "app.js",
   "keywords": [
     "Todo"
   ],
   "author": "Stephen Aribaba",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.2",
+    "babel-preset-es2015": "^6.24.1",
     "eslint": "^4.18.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0"
+    "eslint-plugin-react": "^7.7.0",
+    "mocha": "^5.0.1",
+    "rimraf": "^2.6.2"
   }
 }
