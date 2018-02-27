@@ -4,6 +4,8 @@ An api built with Express Js, Sequelize and Postgresql.
 
 ## Badges
 [![Build Status](https://travis-ci.org/Stylll/todo-api.svg?branch=master)](https://travis-ci.org/Stylll/todo-api)
+[![Maintainability](https://api.codeclimate.com/v1/badges/769212aa46584af3a156/maintainability)](https://codeclimate.com/github/Stylll/todo-api/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/769212aa46584af3a156/test_coverage)](https://codeclimate.com/github/Stylll/todo-api/test_coverage)
 
 ## Getting Started
 
