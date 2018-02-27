@@ -2,6 +2,9 @@
 
 An api built with Express Js, Sequelize and Postgresql.
 
+## Badges
+[![Build Status](https://travis-ci.org/Stylll/todo-api.svg?branch=master)](https://travis-ci.org/Stylll/todo-api)
+
 ## Getting Started
 
 Download or clone this repository into your local machine/
