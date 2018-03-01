@@ -2,7 +2,7 @@
  * Controller for todo requests
  */
 
-import { Todo } from '../server/models';
+import { Todo } from '../models';
 
 // const Todo = require('../server/models').Todo;
 // const TodoItem = require('../server/models').TodoItem;
@@ -14,8 +14,7 @@ import { Todo } from '../server/models';
  */
 module.exports.create = (req, res) => Todo.create({
   title: req.body.title,
-})
-  .then(todo => res.status(201).send(todo))
+}).then(todo => res.status(201).send(todo))
   .catch(error => res.status(400).send(error));
 
 
@@ -26,8 +25,7 @@ module.exports.create = (req, res) => Todo.create({
  */
 module.exports.list = (req, res) => Todo.findAll({
   include: ['todoItems'],
-})
-  .then(todos => res.status(200).send(todos))
+}).then(todos => res.status(200).send(todos))
   .catch(error => res.status(400).send(error));
 
 /**
@@ -37,8 +35,7 @@ module.exports.list = (req, res) => Todo.findAll({
  */
 module.exports.findById = (req, res) => Todo.findById(req.params.id, {
   include: ['todoItems'],
-})
-  .then(todo => res.status(200).send(todo))
+}).then(todo => res.status(200).send(todo))
   .catch(error => res.status(400).send(error));
 
 /**
@@ -48,8 +45,7 @@ module.exports.findById = (req, res) => Todo.findById(req.params.id, {
  */
 module.exports.update = (req, res) => Todo.findById(req.params.id, {
   include: ['todoItems'],
-})
-  .then((todo) => {
+}).then((todo) => {
     if (!todo) {
       return res.status(404).send({ message: 'Todo not found' });
     }
@@ -68,8 +64,7 @@ module.exports.update = (req, res) => Todo.findById(req.params.id, {
  */
 module.exports.delete = (req, res) => Todo.findById(req.params.id, {
   include: ['todoItems'],
-})
-  .then((todo) => {
+}).then((todo) => {
     if (!todo) {
       return res.status(404).send({ message: 'Todo not found' });
     }

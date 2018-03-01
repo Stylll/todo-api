@@ -7,11 +7,6 @@ const todoItemsController = require('../controllers/todoItemsController');
 
 module.exports = (app) => {
   /* GET home page. */
-  app.get('/', (req, res) => {
-    res.status(200).send({ message: 'Welcome to TODO' });
-  });
-
-  /* GET home page. */
   app.get('/api', (req, res) => {
     res.status(200).send({ message: 'Welcome to TODO api' });
   });
