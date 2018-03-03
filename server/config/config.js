@@ -7,6 +7,7 @@ const config = {
   },
   test: {
     use_env_variable: 'TEST_DATABASE_URL',
+    logging: false,
   },
   production: {
     use_env_variable: 'PRODUCTION_DATABASE_URL',
