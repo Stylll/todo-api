@@ -1,7 +1,6 @@
 
 require('dotenv').config();
-console.log('Process Test Database: ',process.env.TEST_DATABASE_URL);
-console.log('Process Database: ',process.env.DATABASE_URL);
+
 const config = {
   development: {
     url: process.env.DATABASE_URL,
