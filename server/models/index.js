@@ -10,16 +10,11 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(`${__dirname}/../config/config`)[env];
 const db = {};
 
-console.log('env: ', env);
-console.log('config: ', config);
-
 let sequelize;
 if (config.url) {
   sequelize = new Sequelize(config.url, config);
-  console.log('using url');
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
-  console.log('not using url');
 }
 
 fs
