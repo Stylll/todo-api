@@ -2,18 +2,21 @@
   "name": "todo-api",
   "version": "0.0.0",
   "private": true,
-  "description": "Api to manage a todo list",
-  "main": "./bin/www",
+  "description": "App to manage a todo list",
+  "main": "./server/bin/www",
   "scripts": {
-    "test":"mocha",
-    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "migrate:db": "sequelize db:migrate:undo:all --env=test && sequelize db:migrate --env=test",
+    "pretest":"npm run migrate:db && NODE_ENV=test",
+    "test:server": "npm run pretest && set NODE_ENV=test&&mocha --compilers js:babel-core/register server/test/**/*.test.js --timeout 5000",
+    "build": "rimraf server/dist/ && babel ./server/,./app.js --out-dir server/dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "npm run start:dev",
-    "start:dev": "npm run build && nodemon ./dist/bin/www"
+    "start:dev": "nodemon --exec babel-node server.js"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
+    "dotenv": "^5.0.1",
     "express": "~4.15.5",
     "morgan": "~1.9.0",
     "pg": "^7.4.1",
@@ -31,12 +34,15 @@
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.2",
     "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "eslint": "^4.18.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "mocha": "^5.0.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "supertest": "^3.0.0"
   }
 }
