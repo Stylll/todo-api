@@ -23,10 +23,45 @@ module.exports.create = (req, res) => Todo.create({
  * @param {*} req
  * @param {*} res
  */
-module.exports.list = (req, res) => Todo.findAll({
-  include: ['todoItems'],
-}).then(todos => res.status(200).send(todos))
-  .catch(error => res.status(400).send(error));
+module.exports.list = (req, res) => {
+  const search = req.query.search || '';
+  let limit = 4;
+  let offset = 0;
+  if (req.query.limit && Number.isInteger(Number(req.query.limit))) {
+    limit = Number(req.query.limit);
+  }
+  if (req.query.offset && Number.isInteger(Number(req.query.offset))) {
+    offset = Number(req.query.offset);
+  }
+  return Todo.findAndCountAll({
+    include: ['todoItems'],
+    distinct: true,
+    where: {
+      title: {
+        $ilike: `%${search}%`,
+      },
+    },
+    offset,
+    limit,
+    order: [
+      ['id', 'desc'],
+    ],
+  }).then((result) => {
+    if (result.count > 0) {
+      return res.status(200).send({
+        todos: result.rows,
+        pagination: {
+          page: Math.floor(offset / limit) + 1,
+          pageCount: Math.ceil(result.count / limit),
+          pageSize: result.rows.length,
+          totalCount: result.count,
+        },
+      });
+    }
+    return res.status(404).send({ message: 'No todo found' });
+  })
+    .catch(error => res.status(400).send(error));
+};
 
 /**
  * Find todo by todo id
@@ -35,7 +70,12 @@ module.exports.list = (req, res) => Todo.findAll({
  */
 module.exports.findById = (req, res) => Todo.findById(req.params.id, {
   include: ['todoItems'],
-}).then(todo => res.status(200).send(todo))
+}).then((todo) => {
+  if (todo) {
+    return res.status(200).send(todo);
+  }
+  return res.status(404).send({ message: 'Todo not found' });
+})
   .catch(error => res.status(400).send(error));
 
 /**
@@ -69,7 +109,7 @@ module.exports.delete = (req, res) => Todo.findById(req.params.id, {
     return res.status(404).send({ message: 'Todo not found' });
   }
   return todo.destroy()
-    .then(todoSingle => res.status(204).send())
+    .then(() => res.status(204).send())
     .catch(error => res.status(400).send(error));
 })
   .catch(error => res.status(400).send(error));
