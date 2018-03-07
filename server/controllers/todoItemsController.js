@@ -43,13 +43,9 @@ module.exports.update = (req, res) => TodoItem.find({
  * Get particular item by id
  * @param {*} req
  * @param {*} res
+ * returns a TodoItem object
  */
-module.exports.get = (req, res) => TodoItem.findAll({
-  where: {
-    id: req.params.itemId,
-    todoId: req.params.id,
-  },
-})
+module.exports.getSingle = (req, res) => TodoItem.findById(req.params.itemId)
   .then((todoItem) => {
     if (!todoItem) {
       return res.status(404).send({ message: 'Todo Item not found' });
@@ -58,32 +54,14 @@ module.exports.get = (req, res) => TodoItem.findAll({
   })
   .catch(error => res.status(400).send(error));
 
-
 /**
- * Delete a particular item
- * @param {*} req
- * @param {*} res
- */
-module.exports.delete = (req, res) => {
+   *
+   * @param {*} req
+   * @param {*} res
+   * return an array of Todo Items
+   */
+module.exports.get = (req, res) => {
   return TodoItem.findAll({
-    where: {
-      id: req.params.itemId,
-      todoId: req.params.id,
-    },
-  })
-    .then((todoItem) => {
-      if (!todoItem) {
-        return res.status(404).send({ message: 'Todo item not found' });
-      }
-      return todoItem.destroy()
-        .then(() => res.status(204).send({ message: 'delete successful' }))
-        .catch(error => res.status(400).send(error));
-    })
-    .catch(error => res.status(400).send(error));
-};
-
-module.exports.getSingle = (req, res) => {
-  return TodoItem.find({
     where: {
       todoId: req.params.id,
     },
@@ -97,3 +75,22 @@ module.exports.getSingle = (req, res) => {
     return res.status(500).send(error);
   });
 };
+
+/**
+ * Delete a particular item
+ * @param {*} req
+ * @param {*} res
+ */
+module.exports.delete = (req, res) => {
+  return TodoItem.findById(req.params.itemId)
+    .then((todoItem) => {
+      if (!todoItem) {
+        return res.status(404).send({ message: 'Todo item not found' });
+      }
+      return todoItem.destroy()
+        .then(() => res.status(204).send({ message: 'delete successful' }))
+        .catch(error => res.status(400).send(error));
+    })
+    .catch(error => res.status(400).send(error));
+};
+

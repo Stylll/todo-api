@@ -8,3 +8,7 @@ export const insertBulkTodo = () => {
 export const insertBulkTodoItems = () => {
   TodoItem.bulkCreate(todoItemSeeder);
 };
+
+export const truncateTables = () => {
+  // TodoItem.truncate({ cascade: true });
+};

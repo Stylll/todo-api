@@ -79,7 +79,23 @@ export const TodoItems = [{
   complete: false,
   todoId: 10,
 }, {
-  content: 'Function-based actuating array',
+  content: 'Function-based actuating array 1',
+  complete: false,
+  todoId: 11,
+}, {
+  content: 'Function-based actuating array 2',
+  complete: false,
+  todoId: 11,
+}, {
+  content: 'Function-based actuating array 3',
+  complete: false,
+  todoId: 11,
+}, {
+  content: 'Function-based actuating array 4',
+  complete: false,
+  todoId: 11,
+}, {
+  content: 'Function-based actuating array 5',
   complete: false,
   todoId: 11,
 }, {

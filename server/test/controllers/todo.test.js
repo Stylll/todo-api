@@ -1,11 +1,12 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import app from '../../../server';
-import { insertBulkTodo, insertBulkTodoItems } from '../helpers/seedGenerator';
+import { insertBulkTodo, insertBulkTodoItems, truncateTables } from '../helpers/seedGenerator';
 
 /**
- * Generate seed data for Todo and TodoItems
+ * truncate tables and Generate seed data for Todo and TodoItems
  */
+truncateTables();
 insertBulkTodo();
 insertBulkTodoItems();
 
@@ -209,7 +210,7 @@ describe('TODO CONTROLLER', () => {
         .end((err, resp) => {
           expect(resp.status).to.equal(404);
           expect(resp.body).to.haveOwnProperty('message');
-          expect(resp.body.message).to.equal('Todo items not found');
+          expect(resp.body.message).to.equal('Todo not found');
           done();
         });
     });
