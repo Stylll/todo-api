@@ -7,7 +7,7 @@
   "scripts": {
     "migrate:db": "sequelize db:migrate:undo:all --env=test && sequelize db:migrate --env=test",
     "pretest":"npm run migrate:db",
-    "test:server": "npm run pretest && set NODE_ENV=test&&mocha --compilers js:babel-core/register server/test/**/*.test.js --timeout 5000",
+    "test:server": "npm run pretest && set NODE_ENV=test&&mocha --compilers js:babel-core/register server/test/**/*.test.js --timeout 5000 --exit",
     "build": "rimraf server/dist/ && babel ./server/,./app.js --out-dir server/dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "npm run start:dev",
     "start:dev": "nodemon --exec babel-node server.js"
