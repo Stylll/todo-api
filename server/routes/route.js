@@ -4,6 +4,8 @@
  */
 import ValidateTodo from '../middlewares/ValidateTodo';
 import ValidateItem from '../middlewares/ValidateTodoItem';
+import validateUser from '../middlewares/validateUser';
+import userController from '../controllers/userController';
 
 
 const todoController = require('../controllers/todoController');
@@ -16,8 +18,31 @@ module.exports = (app) => {
   });
 
   /**
-     * TODO REQUESTS
-     */
+   * USER REQUESTS
+   */
+  app.post(
+    '/api/user/signup', validateUser.validateEmail, validateUser.isEmailAvailable,
+    validateUser.validateUsername, validateUser.isUsernameAvailable, validateUser.validatePassword,
+    userController.signup,
+  );
+
+  app.post('/api/user/login', validateUser.validateEmail, validateUser.validatePassword, userController.login);
+
+  app.post('/api/user/logout');
+
+  app.put(
+    '/api/user/forgotpassword', validateUser.validateEmail, validateUser.isEmailExisting,
+    userController.forgotPassword,
+  );
+
+  app.put(
+    '/api/user/reset/:token', validateUser.validateNewPassword, validateUser.validateToken,
+    userController.resetPassword,
+  );
+
+  /**
+   * TODO REQUESTS
+   */
   /* POST Todo */
   app.post('/api/todos', ValidateTodo.ValidateTodo, ValidateTodo.doesTitleExist, todoController.create);
 

@@ -62,7 +62,7 @@ describe('TODO CONTROLLER', () => {
         .end((err, resp) => {
           expect(resp.status).to.equal(200);
           expect(resp.body.todos).to.be.an('array');
-          expect(resp.body.todos[0]).to.have.all.deep.keys('id', 'title', 'createdAt', 'updatedAt', 'todoItems');
+          expect(resp.body.todos[0]).to.have.all.deep.keys('id', 'title', 'createdAt', 'updatedAt', 'todoItems', 'userId');
           expect(resp.body.todos.length).to.be.greaterThan(1);
           expect(resp.body.pagination).to.deep.include({
             page: 1,
@@ -80,7 +80,7 @@ describe('TODO CONTROLLER', () => {
           expect(resp.status).to.equal(200);
           expect(resp.body).to.be.an('object');
           expect(resp.body.todos).to.be.an('array');
-          expect(resp.body.todos[0]).to.have.all.deep.keys('id', 'title', 'createdAt', 'updatedAt', 'todoItems');
+          expect(resp.body.todos[0]).to.have.all.deep.keys('id', 'title', 'createdAt', 'updatedAt', 'todoItems', 'userId');
           expect(resp.body.todos.length).to.be.greaterThan(0);
           expect(resp.body.todos[0].title).to.equal('Take over the world');
           expect(resp.body.pagination).to.deep.include({
@@ -118,7 +118,7 @@ describe('TODO CONTROLLER', () => {
           expect(resp.status).to.equal(200);
           expect(resp.body).to.be.an('object');
           expect(resp.body.todos).to.be.an('array');
-          expect(resp.body.todos[0]).to.have.all.deep.keys('id', 'title', 'createdAt', 'updatedAt', 'todoItems');
+          expect(resp.body.todos[0]).to.have.all.deep.keys('id', 'title', 'createdAt', 'updatedAt', 'todoItems', 'userId');
           expect(resp.body.todos.length).to.be.greaterThan(1);
           expect(resp.body.pagination).to.deep.include({
             page: 2,
@@ -138,7 +138,7 @@ describe('TODO CONTROLLER', () => {
         .end((err, resp) => {
           expect(resp.status).to.equal(200);
           expect(resp.body).to.be.an('object');
-          expect(resp.body).to.have.all.deep.keys('id', 'title', 'createdAt', 'updatedAt', 'todoItems');
+          expect(resp.body).to.have.all.deep.keys('id', 'title', 'createdAt', 'updatedAt', 'todoItems', 'userId');
           expect(resp.body.id).to.equal(1);
           done();
         });

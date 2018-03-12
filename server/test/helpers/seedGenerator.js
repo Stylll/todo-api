@@ -1,5 +1,6 @@
 import { Todos as todoSeeder, TodoItems as todoItemSeeder } from './seedData';
-import { Todo, TodoItem } from '../../models';
+import { existingUser, normalUser, recoverUser, recoverUser2 } from '../helpers/seedUsers';
+import { Todo, TodoItem, User } from '../../models';
 
 export const insertBulkTodo = () => {
   Todo.bulkCreate(todoSeeder);
@@ -11,4 +12,9 @@ export const insertBulkTodoItems = () => {
 
 export const truncateTables = () => {
   // TodoItem.truncate({ cascade: true });
+};
+
+export const insertBulkUsers = () => {
+  const users = [existingUser, normalUser, recoverUser, recoverUser2];
+  User.bulkCreate(users);
 };

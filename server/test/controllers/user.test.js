@@ -1,15 +1,26 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import app from '../../../server';
-import { insertBulkTodo, insertBulkTodoItems, truncateTables } from '../helpers/seedGenerator';
+import db from '../../models';
+import { insertBulkUsers } from '../helpers/seedGenerator';
+import { existingUser, normalUser, recoverUser, recoverUser2 } from '../helpers/seedUsers';
 
 /* eslint-disable no-undef */
 describe('USER CONTROLLER', () => {
+  before((done) => {
+    db.sequelize.sync({ force: true })
+      .then(() => {
+        insertBulkUsers();
+        done();
+      });
+  });
+
   describe('POST: Signup User - /api/user/signup', () => {
     it('should require email before signup', (done) => {
       request(app)
         .post('/api/user/signup')
         .send({
+          email: '',
           username: 'Master chief',
           password: 'LowkeyExtra123',
         })
@@ -63,7 +74,7 @@ describe('USER CONTROLLER', () => {
           done();
         });
     });
-    it('should return generated token if signup is successful', (done) => {
+    it('should return created user and generated token if signup is successful', (done) => {
       request(app)
         .post('/api/user/signup')
         .send({
@@ -73,10 +84,11 @@ describe('USER CONTROLLER', () => {
         })
         .end((err, resp) => {
           expect(resp.status).to.equal(201);
-          expect(resp.body).to.have.all.deep.keys('id', 'email', 'username', 'token');
-          expect(resp.body.email).to.equal('already@existing.com');
-          expect(resp.body.username).to.equal('alreadyexisting');
+          expect(resp.body).to.have.all.deep.keys('message', 'user', 'token');
+          expect(resp.body.user.email).to.equal('already@existing.com');
+          expect(resp.body.user.username).to.equal('alreadyexisting');
           expect(resp.body.token).to.not.be.a('null');
+          expect(resp.body.message).to.equal('Signup successful');
           done();
         });
     });
@@ -85,7 +97,7 @@ describe('USER CONTROLLER', () => {
         .post('/api/user/signup')
         .send({
           email: 'master@new.com',
-          username: 'alreadyexisting',
+          username: existingUser.username,
           password: 'LowkeyExtra123',
         })
         .end((err, resp) => {
@@ -99,7 +111,7 @@ describe('USER CONTROLLER', () => {
       request(app)
         .post('/api/user/signup')
         .send({
-          email: 'already@existing.com',
+          email: existingUser.email,
           username: 'Master chief',
           password: 'LowkeyExtra123',
         })
@@ -113,19 +125,20 @@ describe('USER CONTROLLER', () => {
   });
 
   describe('POST: Login User - /api/user/login', () => {
-    it('should allow existing user login and return token', (done) => {
+    it('should allow existing user login and return auth token', (done) => {
       request(app)
         .post('/api/user/login')
         .send({
-          email: 'already@existing.com',
-          password: 'LowkeyExtra123',
+          email: normalUser.email,
+          password: normalUser.password,
         })
         .end((err, resp) => {
           expect(resp.status).to.equal(200);
-          expect(resp.body).to.have.all.deep.keys('id', 'email', 'username', 'token');
-          expect(resp.body.email).to.equal('already@existing.com');
-          expect(resp.body.username).to.equal('alreadyexisting');
+          expect(resp.body).to.have.all.deep.keys('message', 'user', 'token');
+          expect(resp.body.user.email).to.equal(normalUser.email);
+          expect(resp.body.user.username).to.equal(normalUser.username);
           expect(resp.body.token).to.not.be.a('null');
+          expect(resp.body.message).to.equal('Login successful');
           done();
         });
     });
@@ -180,7 +193,7 @@ describe('USER CONTROLLER', () => {
         .end((err, resp) => {
           expect(resp.status).to.equal(401);
           expect(resp.body).to.haveOwnProperty('message');
-          expect(resp.body.message).to.equal('Email or Password is incorrect. Try again.');
+          expect(resp.body.message).to.equal('Email or Password is incorrect.');
           done();
         });
     });
@@ -217,19 +230,18 @@ describe('USER CONTROLLER', () => {
       request(app)
         .put('/api/user/forgotpassword')
         .send({
-          email: 'andrew@higgins.com',
+          email: recoverUser.email,
         })
         .end((err, resp) => {
           expect(resp.status).to.equal(200);
           expect(resp.body).to.haveOwnProperty('message');
-          expect(resp.body.message).to.equal('An email has been sent to andrew@higgins.com for further instructions');
+          expect(resp.body.message).to.equal(`An email has been sent to ${recoverUser.email} for further instructions.`);
           done();
         });
     });
-    it('should not send reset token if network error occurs');
   });
 
-  describe('Reset Password - /api/user/reset:token', () => {
+  describe('Reset Password - /api/user/reset/token', () => {
     it('should not reset if token is not associated with a user id', (done) => {
       request(app)
         .put('/api/user/reset/390xake209a3901f0ak')
@@ -244,9 +256,8 @@ describe('USER CONTROLLER', () => {
         });
     });
     it('should require new password', (done) => {
-      const token = '390xake209a3901f0ak';
       request(app)
-        .put(`/api/user/reset/${token}`)
+        .put(`/api/user/reset/${recoverUser.resetPasswordToken}`)
         .send({
         })
         .end((err, resp) => {
@@ -256,11 +267,9 @@ describe('USER CONTROLLER', () => {
           done();
         });
     });
-    it('should not reset password if network error occurs');
     it('should reset password for user with valid credentials', (done) => {
-      const token = '390xake209a3901f0ak';
       request(app)
-        .put(`/api/user/reset/${token}`)
+        .put(`/api/user/reset/${recoverUser2.resetPasswordToken}`)
         .send({
           password: 'newpassword1234',
         })
@@ -268,6 +277,23 @@ describe('USER CONTROLLER', () => {
           expect(resp.status).to.equal(200);
           expect(resp.body).to.haveOwnProperty('message');
           expect(resp.body.message).to.equal('Password reset successful');
+          done();
+        });
+    });
+    it('should login with newly set password', (done) => {
+      request(app)
+        .post('/api/user/login')
+        .send({
+          email: recoverUser2.email,
+          password: 'newpassword1234',
+        })
+        .end((err, resp) => {
+          expect(resp.status).to.equal(200);
+          expect(resp.body).to.have.all.deep.keys('message', 'user', 'token');
+          expect(resp.body.user.email).to.equal(recoverUser2.email);
+          expect(resp.body.user.username).to.equal(recoverUser2.username);
+          expect(resp.body.token).to.not.be.a('null');
+          expect(resp.body.message).to.equal('Login successful');
           done();
         });
     });
