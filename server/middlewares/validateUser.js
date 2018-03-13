@@ -1,5 +1,8 @@
 import validator from 'validator';
-import { User } from '../models';
+import jwt from 'jsonwebtoken';
+import { User, Todo, TodoItem } from '../models';
+
+require('dotenv').config();
 
 const validateUser = {
   /**
@@ -141,6 +144,71 @@ const validateUser = {
       }
       return next();
     }).catch(() => res.status(500).send({ message: 'An error occured, please try again later.' }));
+  },
+
+  /**
+   * Authenticates user with jwt token provided in the body, query or headers.
+   * Sets the decoded user object in req.decoded
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   * @return {function} returns next function if authentication is successful
+   */
+  authenticateUser(req, res, next) {
+    const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    if (token) {
+      return jwt.verify(token, process.env.SECRET, (err, decoded) => {
+        if (err) {
+          return res.status(401).send({ message: 'Token is invalid or has expired' });
+        }
+        req.decoded = decoded;
+        return next();
+      });
+    }
+    return res.status(401).send({ message: 'Authentication failed. No token provided.' });
+  },
+
+  /**
+   * This confirms if the todo id passed was created by the user requesting it
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   * @returns {function} returns next function if todo was created by user
+   */
+  confirmOwnership(req, res, next) {
+    return Todo.findOne({
+      where: {
+        id: req.params.id,
+        userId: req.decoded.user.id,
+      },
+    }).then((todoResult) => {
+      if (!todoResult) {
+        return res.status(401).send({ message: 'Unauthorized access' });
+      }
+      return next();
+    }).catch(() => res.status(500).send({ message: 'Internal Server Error' }));
+  },
+
+  /**
+   * This confirms if the todo item id passed is the child of a todo
+   * that was created by the user requesting it
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   * @returns {function} returns next function if todo item was created by user
+   */
+  confirmItemOwnership(req, res, next) {
+    return TodoItem.findOne({
+      where: {
+        id: req.params.itemId,
+        todoId: req.params.id,
+      },
+    }).then((itemResult) => {
+      if (!itemResult) {
+        return res.status(401).send({ message: 'Unauthorized access' });
+      }
+      return next();
+    }).catch(() => res.status(500).send({ message: 'Internal Server Error' }));
   },
 };
 

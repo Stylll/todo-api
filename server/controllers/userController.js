@@ -38,10 +38,7 @@ const userController = {
         });
       }
       return res.status(501).send({ message: 'An error occured. Please try again later.' });
-    }).catch((err) => {
-      console.log('error: ', err);
-      return res.status(503).send({ message: 'An error occured. Please try again later.' });
-    });
+    }).catch(() => res.status(503).send({ message: 'An error occured. Please try again later.' }));
   },
 
   /**
@@ -101,10 +98,9 @@ const userController = {
         const subject = 'Todo App Password Reset';
         transporter.sendMail(
           mailOptions(to, subject, forgotPasswordMail(req.headers.host, resetToken)),
-        )
-          .then(() => {
-            res.status(200).send({ message: `An email has been sent to ${user.email} for further instructions.` });
-          }).catch(() => res.status(500).send({ message: 'Internal Server Error' }));
+        ).then(() => {
+          res.status(200).send({ message: `An email has been sent to ${user.email} for further instructions.` });
+        }).catch(() => res.status(500).send({ message: 'Internal Server Error' }));
       }).catch(() => res.status(500).send({ message: 'Internal Server Error' }));
     });
   },

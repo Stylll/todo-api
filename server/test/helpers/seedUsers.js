@@ -1,3 +1,6 @@
+import jwt from 'jsonwebtoken';
+
+require('dotenv').config();
 
 export const existingUser = {
   email: 'livingfaith@yahoo.com',
@@ -26,3 +29,22 @@ export const recoverUser2 = {
   resetPasswordToken: '2QVwcHqowyX6SAK',
   resetPasswordExpires: Date.now() + 7200000,
 };
+
+export const generateToken = (id, user) => {
+  const newUser = { id, username: user.username, email: user.email };
+  const token = jwt.sign(
+    {
+      user: newUser,
+    },
+    process.env.SECRET,
+    {
+      expiresIn: Number(Date.now() + 30),
+    },
+  );
+  return token;
+};
+
+export const existingUserToken = () => generateToken(1, existingUser);
+
+export const normalUserToken = () => generateToken(2, normalUser);
+
