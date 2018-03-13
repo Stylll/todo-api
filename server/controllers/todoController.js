@@ -14,6 +14,7 @@ import { Todo } from '../models';
  */
 module.exports.create = (req, res) => Todo.create({
   title: req.body.title,
+  userId: req.decoded.user.id,
 }).then(todo => res.status(201).send(todo))
   .catch(error => res.status(400).send(error));
 
@@ -33,6 +34,7 @@ module.exports.list = (req, res) => {
   if (req.query.offset && Number.isInteger(Number(req.query.offset))) {
     offset = Number(req.query.offset);
   }
+  console.log('decoded user id: ', req.decoded.user.id);
   return Todo.findAndCountAll({
     include: ['todoItems'],
     distinct: true,
@@ -40,6 +42,7 @@ module.exports.list = (req, res) => {
       title: {
         $ilike: `%${search}%`,
       },
+      userId: req.decoded.user.id,
     },
     offset,
     limit,

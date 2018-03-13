@@ -6,24 +6,29 @@
   "main": "./server/bin/www",
   "scripts": {
     "migrate:db": "sequelize db:migrate:undo:all --env=test && sequelize db:migrate --env=test",
-    "pretest":"npm run migrate:db",
+    "pretest": "npm run migrate:db",
     "test:server": "npm run pretest && set NODE_ENV=test&&mocha --compilers js:babel-core/register server/test/**/*.test.js --timeout 5000 --exit",
     "build": "rimraf server/dist/ && babel ./server/,./app.js --out-dir server/dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "npm run start:dev",
     "start:dev": "nodemon --exec babel-node server.js"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dotenv": "^5.0.1",
     "express": "~4.15.5",
+    "jsonwebtoken": "^8.2.0",
     "morgan": "~1.9.0",
+    "nodemailer": "^4.6.2",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
     "pug": "2.0.0-beta11",
+    "randomstring": "^1.1.5",
     "sequelize": "^4.33.4",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "validator": "^9.4.1"
   },
   "keywords": [
     "Todo"
