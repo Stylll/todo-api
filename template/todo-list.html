@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Todo - List
+    </title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Import materialize css -->
+    <link rel='stylesheet' href="../node_modules/materialize-css/dist/css/materialize.min.css" type="text/css" />
+    <!-- Import custom style css -->
+    <link rel='stylesheet' href='./css/style.css' type='text/css' />
+    <!-- Let browser know website is optimized for mobile -->
+    <meta name='viewport' content='width=device-width, height=device-height, initial-scale=1.0' />
+  </head>
+  <body class="">
+    <main class="">
+      <div class="primary-bg-color">
+      <!-- Navigation bar Start -->
+      <nav class="primary-bg-color">
+        <div class="nav-wrapper">
+            <ul class="left">
+                <li><a href="#" class="">SLATE</a></li>
+              </ul>
+          <ul class="right">
+              <li><a href="./login.html" class="black-text">logout</a></li>
+            </ul>
+        </div>
+      </nav>
+      <!-- Navigation bar End -->
+      <!-- Header content Start -->
+      <div class='container'>
+        <div class="row">
+          <div class="col s12 m12 l12 xl12">
+            <h1 class="white-text">My Slate</h1>
+            <span class="white-text left">Monday, 20 September 2017</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col m12">
+          <form>
+            <div class="row">
+              <div class="col s12 m8">
+                <input id="tbSearch" type="text" placeholder="Enter search here..." class="validate white-text">
+              </div>
+              <div class="col s12 m4">
+                  <button class="btn waves-effect waves-light btn-secondary" type="submit" name="action">
+                      Go
+                        <i class="material-icons right">send</i>
+                  </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        </div>
+        
+      </div>
+      <br/>
+      <!-- Header content End -->
+    </div>
+      <!-- Body content Start -->
+      <div class="white content-form">
+        <br/>
+        <div class="container">
+            <ul class="collection">
+              <li class="collection-item">
+                <div class="row">
+                  <div class="col s8 m8 l8 xl8">
+                    <a href="todo-items.html" class="black-text">
+                    <h5>Submit Monthly Report</h5>
+                  </a>
+                    <small>20, September 2015</small>
+                  </div>
+                  <div class="col s2 m2 l2 xl2">
+                      <a href="./edit-todo.html" class="secondary-content center primary-text-color"><i class="material-icons">edit</i></a>
+                    </div>
+                  <div class="col s2 m2 l2 xl2">
+                        <a href="#modal1" class="secondary-content red-text"><i class="material-icons">delete</i></a>
+                  </div>
+                </div>
+              </li>
+              <li class="collection-item">
+                  <div class="row">
+                    <div class="col s8 m8 l8 xl8">
+                      <h5>Buy new clothes</h5>
+                      <small>20, September 2015</small>
+                    </div>
+                    <div class="col s2 m2 l2 xl2">
+                        <a href="#!" class="secondary-content center primary-text-color"><i class="material-icons">edit</i></a>
+                      </div>
+                    <div class="col s2 m2 l2 xl2">
+                          <a href="#!" class="secondary-content red-text"><i class="material-icons">delete</i></a>
+                    </div>
+                  </div>
+                </li>
+                <li class="collection-item">
+                    <div class="row">
+                      <div class="col s8 m8 l8 xl8">
+                        <h5>Buy new clothes</h5>
+                        <small>20, September 2015</small>
+                      </div>
+                      <div class="col s2 m2 l2 xl2">
+                          <a href="#!" class="secondary-content center primary-text-color"><i class="material-icons">edit</i></a>
+                        </div>
+                      <div class="col s2 m2 l2 xl2">
+                            <a href="#!" class="secondary-content red-text"><i class="material-icons">delete</i></a>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="collection-item">
+                      <div class="row">
+                        <div class="col s8 m8 l8 xl8">
+                          <h5>Buy new clothes</h5>
+                          <small>20, September 2015</small>
+                        </div>
+                        <div class="col s2 m2 l2 xl2">
+                            <a href="#!" class="secondary-content center primary-text-color"><i class="material-icons">edit</i></a>
+                          </div>
+                        <div class="col s2 m2 l2 xl2">
+                              <a href="#!" class="secondary-content red-text"><i class="material-icons">delete</i></a>
+                        </div>
+                      </div>
+                    </li>
+            </ul>
+            <!-- Modal container -->
+          <!-- Modal Structure -->
+          <div id="modal1" class="modal">
+              <div class="modal-content">
+                <h4>Modal Header</h4>
+                <p>A bunch of text</p>
+              </div>
+              <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+              </div>
+            </div>
+        <!-- Model container End -->
+            <!-- FAB Start -->
+            <div class="fixed-action-btn">
+              <a class="btn-floating btn-large waves-effect waves-light primary-bg-color">
+                <i class="material-icons">add</i>
+              </a>
+            </div>
+            <!-- FAB End -->
+        </div>
+      </div>
+      <!-- Body content End -->
+
+    </main>
+    <br />
+    <footer class="page-footer secondary-bg-color">
+        <div class="container ">
+            <div class="row">
+                <div class="col s12 m12 l12 center">
+                        <span>Created with &hearts; by Stephen 😍</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Import Jquery -->
+    <script type="javascript" src='../node_modules/jquery/dist/jquery.min.js'></script>
+    <!-- Import materialize js -->
+    <script type="javascript" src='../node_modules/materialize-css/dist/js/materialize.min.js'></script>
+  </body>
+</html>
