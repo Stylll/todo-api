@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const mailOptions = (to, subject, html) => ({
-  from: '"Todo App" <stephen.aribaba@gmail.com>',
+  from: '"Slate App" <noreply@slate.com>',
   to,
   subject,
   html,

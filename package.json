@@ -5,6 +5,8 @@
   "description": "App to manage a todo list",
   "main": "./server/bin/www",
   "scripts": {
+    "migrate:db-prod":"sequelize db:migrate:undo:all --env=production && sequelize db:migrate --env=production",
+    "migrate:db-dev":"sequelize db:migrate:undo:all --env=development && sequelize db:migrate --env=development",
     "migrate:db": "sequelize db:migrate:undo:all --env=test && sequelize db:migrate --env=test",
     "pretest": "npm run migrate:db",
     "test:server": "npm run pretest && set NODE_ENV=test&&mocha --compilers js:babel-core/register server/test/**/*.test.js --timeout 5000 --exit",
