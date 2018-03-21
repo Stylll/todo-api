@@ -11,18 +11,20 @@
     "pretest": "npm run migrate:db",
     "test:server": "npm run pretest && set NODE_ENV=test&&mocha --compilers js:babel-core/register server/test/**/*.test.js --timeout 5000 --exit",
     "prestart": "babel-node tools/startMessage.js",
-    "start": "npm run build",
+    "start": "babel-node tools/srcServer.js",
     "open:src": "npm-run-all --parallel open:app",
     "open:app": "babel-node tools/srcServer.js",
     "start:dev": "nodemon --exec babel-node server.js",
     "lint": "esw webpack.config.* tools client/src",
     "lint:watch": "npm run lint -- --watch",
+    "prod:build": "npm run build",
     "clean-dist": "npm run remove-dist && mkdirp client/dist",
     "remove-dist": "rimraf client/dist",
     "build:html": "babel-node tools/buildHtml.js",
     "prebuild": "npm-run-all clean-dist build:html",
     "build": "babel-node tools/build.js",
-    "postbuild": "babel-node tools/distServer.js"
+    "postbuild": "babel-node tools/distServer.js",
+    "open:build": "babel-node tools/distServer.js"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
