@@ -1,0 +1,84 @@
+/** Containers Start **/
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+main {
+  flex: 1 0 auto;
+}
+.content-form {
+  border-radius: 10px;
+}
+.secondary-content {
+  padding: 20px;
+}
+.switch {
+  padding-top: 20px;
+}
+.item-text {
+  padding: 5px;
+}
+.switch label input[type=checkbox]:checked+.lever:after {
+  background-color: #700353;
+}
+.switch label input[type=checkbox]:checked+.lever {
+  background-color: #460234;;
+}
+/** Containers End **/
+
+/** Colors Start **/
+.primary-bg-color {
+  background-color: #700353;
+}
+.secondary-bg-color {
+  background-color: #4CAF50;
+}
+.primary-text-color {
+  color: #700353;
+}
+.secondary-text-color {
+  color: #4CAF50;
+}
+/** Colors End **/
+
+/** Paddings & Margins Start **/
+.padding-top {
+  padding-top: 10px;
+}
+.no-padding-top {
+  padding-top: 0;
+}
+.no-margin {
+  margin: 0 !important;
+}
+/** Paddings & Margins End **/
+
+/** Inputs & Labels & Buttons Start **/
+/* label color */
+.input-field label {
+  color: #700353 !important;
+}
+/* label focus color */
+.input-field input:focus + label {
+  color: #700353 !important;
+}
+/* label underline focus color */
+.input-field input:focus {
+  border-bottom: 1px solid #700353 !important;
+  box-shadow: 0 1px 0 0 #700353 !important;
+}
+.btn-primary {
+  background-color: #700353 !important;
+}
+.btn-secondary {
+  background-color: #4CAF50 !important;
+}
+.btn-secondary:hover {
+  background-color: rgb(109, 204, 112) !important;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+/** Inputs & Labels & Buttons End **/
