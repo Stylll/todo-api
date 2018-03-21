@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import path from 'path';
 
+/* eslint-disable comma-dangle */
 export default {
   mode: 'development',
   devtool: 'inline-source-map',
@@ -38,9 +39,9 @@ export default {
         exclude: /node_modules/,
         use: 'babel-loader'
       },
-      { 
-        test: /(\.css)$/, 
-        use: ['style-loader', 'css-loader'] 
+      {
+        test: /(\.css)$/,
+        use: ['style-loader', 'css-loader']
       },
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, use: 'file-loader' },
       { test: /\.(woff|woff2)$/, use: 'url-loader?prefix=font/&limit=5000' },
