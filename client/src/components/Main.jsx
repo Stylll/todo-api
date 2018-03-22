@@ -9,6 +9,7 @@ class Main extends React.Component {
       <div>
         <NavBar />
         This is the master page
+        {this.props.children}
       </div>
     );
   }
