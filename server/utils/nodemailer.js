@@ -28,7 +28,7 @@ const forgotPasswordMail = (url, resetToken) => (
     <br>
   Please note that the link is valid for 1 hour only.
     <br>
-  <a href='http://${url}/reset/${resetToken}'>http://${url}/reset/${resetToken}</a>
+  <a href='http://${url}/resetpassword/${resetToken}'>http://${url}/resetpassword/${resetToken}</a>
     <br>
   If you did not request this, please ignore this
   email and your password will remain unchanged.

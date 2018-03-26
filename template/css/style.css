@@ -25,6 +25,9 @@ main {
 .switch label input[type=checkbox]:checked+.lever {
   background-color: #460234;;
 }
+.full-height {
+  min-height: 96vh;
+}
 /** Containers End **/
 
 /** Colors Start **/
@@ -76,6 +79,10 @@ main {
 }
 .btn-secondary:hover {
   background-color: rgb(109, 204, 112) !important;
+}
+.btn-plain {
+  background-color:transparent;
+  border:none;
 }
 
 .line-through {

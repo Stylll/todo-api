@@ -1,11 +1,15 @@
 import 'babel-polyfill';
 import React, { ReactPropTypes } from 'react';
+import {toast, ToastContainer} from 'react-toastify';
+import LoadingBar from 'react-redux-loading-bar';
 
 /* eslint-disable react/prefer-stateless-function */
 class AccountMaster extends React.Component {
   render() {
     return (
-      <div>
+      <div className="primary-bg-color full-height">
+        <LoadingBar className="loadingBar" />
+        <ToastContainer autoClose={10000} />
         <div className="container padding-top">
           {/*<!-- Logo Image Begins -->*/}
           <div className="row">
