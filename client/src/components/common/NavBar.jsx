@@ -1,8 +1,9 @@
 import 'babel-polyfill';
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
-const NavBar = (props) => {
+const NavBar = ({ authenticated, logout }) => {
   return (
     <div>
       <nav className="primary-bg-color">
@@ -13,14 +14,21 @@ const NavBar = (props) => {
             </li>
           </ul>
           <ul className="right">
-            <li>
-              <NavLink to="/login" className="black-text">logout</NavLink>
-            </li>
+
+            {!authenticated && <li> <NavLink to="/login" className="black-text">login</NavLink> </li>}
+            {authenticated && <li><a href="javascript:void(0);"><button onClick={logout} className="btn-plain black-text">logout</button></a></li>}
+
           </ul>
         </div>
       </nav>
     </div>
   );
+};
+
+//prop types
+NavBar.propTypes = {
+  authenticated: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
 export default NavBar;
