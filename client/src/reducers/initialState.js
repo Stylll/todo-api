@@ -6,8 +6,9 @@ export default {
     isPasswordReset: false
   },
   todo: {
-    todoList: [],
+    todos: [],
     pagination: {}
   },
+  todoItem: {},
   ajaxCallsInProgress: 0
 };
