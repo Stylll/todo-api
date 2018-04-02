@@ -7,6 +7,7 @@ import Signup from './components/account/Signup';
 import ForgotPassword from './components/account/ForgotPassword';
 import ResetPassword from './components/account/ResetPassword';
 import Slate from './components/slate/Slate';
+import EditSlate from './components/slate/EditSlate';
 
 export default (
   <div>
@@ -17,6 +18,8 @@ export default (
       <Route path="/signup" component={Signup} />
       <Route path="/forgotpassword" component={ForgotPassword} />
       <Route path="/resetpassword/:token" component={ResetPassword} />
+      <Route exact path="/edit" component={EditSlate} />
+      <Route path="/edit/:id" component={EditSlate} />
     </Switch>
   </div>
 );

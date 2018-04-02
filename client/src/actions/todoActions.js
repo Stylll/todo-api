@@ -72,7 +72,7 @@ export const saveTodo = todo => {
     }
     else {
       //means we are creating a new todo
-      return axios.put(api.todo.create, todo)
+      return axios.post(api.todo.create, todo)
         .then((resp) => {
           dispatch(stopLoading());
           dispatch(saveTodoSuccess(resp.data));

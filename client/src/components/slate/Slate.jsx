@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import {NavLink} from 'react-router-dom';
 import Main from '../Main';
 import TopBar from '../common/TopBar';
 import TodoList from './TodoList';
@@ -28,9 +29,9 @@ class Slate extends React.Component {
         {/*Content Ends Here*/}
         {/* FAB Start */}
         <div className="fixed-action-btn">
-          <a className="btn-floating btn-large waves-effect waves-light primary-bg-color">
+          <NavLink to="/edit" className="btn-floating btn-large waves-effect waves-light primary-bg-color">
             <i className="material-icons">add</i>
-          </a>
+          </NavLink>
         </div>
         {/* FAB End */}
       </Main>
@@ -38,6 +39,7 @@ class Slate extends React.Component {
   }
 }
 
+// prop types
 Slate.propTypes = {
   todo: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
