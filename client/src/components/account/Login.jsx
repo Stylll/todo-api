@@ -71,7 +71,7 @@ class Login extends React.Component {
     // redirect to user page is authenticated
     if (this.props.isAuthenticated) {
       return (
-        <Redirect to="/home" />
+        <Redirect to="/" />
       );
     }
     return (

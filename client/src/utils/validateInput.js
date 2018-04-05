@@ -87,9 +87,45 @@ const validateResetPasswordInput = state => {
   };
 };
 
+/**
+ * validates the title input of the edit todo page
+ * @param {*} state 
+ * @returns {object} returns errors and isValid status
+ */
+const validateTodoInput = state => {
+  const errors = {};
+  if(trim(state.title).length === 0) {
+    errors.title = 'Todo title is required.';
+  }
+
+  return {
+    errors,
+    isValid: isEmpty(errors)
+  };
+};
+
+/**
+ * validates the title input of the edit todo item page
+ * @param {*} state 
+ * @returns {object} returns errors and isValid status
+ */
+const validateTodoItemInput = state => {
+  const errors = {};
+  if(trim(state.content).length === 0) {
+    errors.content = 'Item content is required.';
+  }
+
+  return {
+    isValid: isEmpty(errors),
+    errors
+  };
+};
+
 export {
   validateLoginInput,
   validateSignupInput,
   validateForgetPasswordInput,
-  validateResetPasswordInput
+  validateResetPasswordInput,
+  validateTodoInput,
+  validateTodoItemInput
 };

@@ -53,6 +53,9 @@ main {
 .padding-top {
   padding-top: 10px;
 }
+.padding {
+  padding: 10px;
+}
 .no-padding-top {
   padding-top: 0;
 }
