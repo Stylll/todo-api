@@ -68,7 +68,7 @@ class Signup extends React.Component {
   render() {
     if(this.props.isAuthenticated) {
       return (
-        <Redirect to="/home" />
+        <Redirect to="/" />
       );
     }
     return (

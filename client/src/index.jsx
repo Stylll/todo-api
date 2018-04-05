@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken';
 import routes from '../src/routes';
 import configureStore from './store/configureStore';
 import {loginSuccess} from './actions/authActions';
+import {getTodo} from './actions/todoActions';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import '../../node_modules/materialize-css/dist/css/materialize.min.css';
 import './styles/style.css';
@@ -20,6 +21,7 @@ const store = configureStore();
 if(localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);
   store.dispatch(loginSuccess(jwt.decode(localStorage.jwtToken).user));
+  store.dispatch(getTodo());
 }
 
 render(
