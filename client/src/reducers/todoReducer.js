@@ -9,7 +9,17 @@ const todoReducer = (state = initialState.todo, action) => {
         todos: action.todos.todos,
         pagination: action.todos.pagination
       };
+      
     case types.GET_TODO_FAILED:
+      return state;
+
+    case types.GET_SINGLE_TODO_SUCCESS:
+      return {
+        ...state,
+        singleTodo: action.todo
+      };
+
+    case types.GET_SINGLE_TODO_FAILED:
       return state;
 
     case types.SAVE_TODO_SUCCESS:

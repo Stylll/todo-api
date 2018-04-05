@@ -111,8 +111,8 @@ const validateTodoInput = state => {
  */
 const validateTodoItemInput = state => {
   const errors = {};
-  if(trim(state.title).length === 0) {
-    errors.title = 'Item title is required.';
+  if(trim(state.content).length === 0) {
+    errors.content = 'Item content is required.';
   }
 
   return {

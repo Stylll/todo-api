@@ -14,6 +14,13 @@ const api = {
     get: '/api/todos',
     getById: '/api/todos',
     delete: '/api/todos'
+  },
+  todoItem: {
+    create: (todoId) => `/api/todos/${todoId}/item`,
+    update: (todoId, itemId) => `/api/todos/${todoId}/item/${itemId}`,
+    get: (todoId) => `/api/todos/${todoId}/item`,
+    getById: (todoId, itemId) => `/api/todos/${todoId}/item/${itemId}`,
+    delete: (todoId, itemId) => `/api/todos/${todoId}/item/${itemId}`,
   }
 };
 

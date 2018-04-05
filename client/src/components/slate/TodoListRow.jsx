@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {NavLink} from 'react-router-dom';
 import {beautifyDate} from '../../utils/utils';
 
-const TodoListRow = ({todo}) => {
+const TodoListRow = ({todo, handleDelete}) => {
   return (
     <li className="collection-item">
       <div className="row">
@@ -19,7 +19,7 @@ const TodoListRow = ({todo}) => {
           </NavLink>
         </div>
         <div className="col s2 m2 l2 xl2">
-          <a href="#modal1" className="secondary-content red-text"><i className="material-icons">delete</i></a>
+          <a href="#!" onClick={e => handleDelete(e, todo)} className="secondary-content red-text"><i className="material-icons">delete</i></a>
         </div>
       </div>
     </li>
@@ -27,7 +27,8 @@ const TodoListRow = ({todo}) => {
 };
 
 TodoListRow.propTypes = {
-  todo: PropTypes.object.isRequired
+  todo: PropTypes.object.isRequired,
+  handleDelete: PropTypes.func.isRequired
 };
 
 export default TodoListRow;

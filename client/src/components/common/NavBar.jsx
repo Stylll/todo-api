@@ -10,7 +10,7 @@ const NavBar = ({ authenticated, logout }) => {
         <div className="nav-wrapper">
           <ul className="left">
             <li>
-              <NavLink to="/">Slate</NavLink>
+              <NavLink to="/">My Slate</NavLink>
             </li>
           </ul>
           <ul className="right">

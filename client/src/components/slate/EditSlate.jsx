@@ -31,7 +31,8 @@ class EditSlate extends React.Component {
   componentDidMount(){
     /**
      * This is used because when the page is navigated to, 
-     * componentWillReceiveProps is not called
+     * componentWillReceiveProps is not called,
+     * the state has already been loaded with data
      */
     this.setUp(this.props.todos);
   }
@@ -39,7 +40,9 @@ class EditSlate extends React.Component {
   componentWillReceiveProps(nextProps) {
     /**
      * This is used because when the page is refreshed,
-     * state is loaded again therefore componentWillReceiveProps is called 
+     * state is loaded again therefore when componentDidMount is called,
+     * state is still getting data,
+     * componentWillReceiveProps is called when state has gotten data
      * to handle the updated state
      */
     this.setUp(nextProps.todos);

@@ -51,6 +51,45 @@ export const getTodoFailed = message => {
 };
 
 /**
+ * Action to get a single todo using id
+ * @param {object} {id: todoId} 
+ * @returns {func} dispatch function to handle success / error
+ */
+export const getTodoById = params => {
+  return dispatch => {
+    dispatch(startLoading());
+    return axios.get(`${api.todo.getById}/${params.id}`)
+      .then((resp) => {
+        dispatch(stopLoading());
+        dispatch(getTodoByIdSuccess(resp.data));
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(getTodoByIdFailed(err.response.data.message));
+      });
+  };
+};
+
+/**
+ * Action to handle successful todo get api call
+ * @param {*} todo 
+ * @returns {obj} object for reducers
+ */
+export const getTodoByIdSuccess = todo => {
+  return {type: types.GET_SINGLE_TODO_SUCCESS, todo};
+};
+
+/**
+ * Action to handle failed todo get api call
+ * @param {string} message 
+ * @returns {obj} object for reducers
+ */
+export const getTodoByIdFailed = message => {
+  toast.error(message);
+  return {type: types.GET_SINGLE_TODO_FAILED};
+};
+
+/**
  * Action to handling creating and updating todo
  * @param {*} todo 
  * @returns {func} dispatch function to handle success / error
